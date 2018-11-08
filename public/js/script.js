@@ -1,5 +1,5 @@
 var show_list;
-var sort_type = 'alphabetic';
+var sort_type = 'time';
 
 $(document).ready(function () {
   bootbox.setDefaults({locale:lang['locale-bootbox']});
@@ -42,7 +42,7 @@ $('#add-folder').click(function () {
   });
 });
 
-$('#upload').click(function () {
+$('#upload, #upload2').click(function () {
   $('#uploadModal').modal('show');
 });
 
@@ -89,6 +89,10 @@ $('#list-sort-alphabetic').click(function() {
 $('#list-sort-time').click(function() {
   sort_type = 'time';
   loadItems();
+});
+
+$('#window-close').click(function() {
+  parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
 });
 
 // ======================
@@ -264,13 +268,13 @@ function download(file_name) {
 // ==  Ckeditor, Bootbox, preview  ==
 // ==================================
 
-function useFile(file_url) {
+function getUrlParam(paramName) {
+  var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+  var match = window.location.search.match(reParam);
+  return ( match && match.length > 1 ) ? match[1] : null;
+}
 
-  function getUrlParam(paramName) {
-    var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
-    var match = window.location.search.match(reParam);
-    return ( match && match.length > 1 ) ? match[1] : null;
-  }
+function useFile(file_url) {
 
   function useTinymce3(url) {
     var win = tinyMCEPopup.getWindowArg("window");

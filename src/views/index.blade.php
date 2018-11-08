@@ -82,6 +82,16 @@
                   </li>
                 </ul>
               </li>
+              <li>
+                <a class="clickable" id="upload2">
+                  <span>Upload</span>
+                </a>
+              </li>
+              <li>
+                <a class="clickable" id="window-close">
+                  <span>Close</span>
+                </a>
+              </li>
             </ul>
           </div>
         </nav>
