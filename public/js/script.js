@@ -139,6 +139,21 @@ $(document).on('click', '#upload', function () {
   $('#uploadModal').modal('show');
 });
 
+// Assessment Generator custom menu items
+$(document).on('click', '#nav-upload', function () {
+  $('#uploadModal').modal('show');
+});
+
+$(document).on('click', '#nav-close', function () {
+   if ( typeof parent.CKEDITOR === 'undefined' ) {
+      window.close();
+   } else {
+      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
+   }
+});
+// End Assessment Generator custom menu items
+
+
 $(document).on('click', '[data-display]', function() {
   show_list = $(this).data('display');
   loadItems();
