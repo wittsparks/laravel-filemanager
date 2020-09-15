@@ -201,7 +201,7 @@ class LfmPath
         }
 
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
-            if ( $key_to_sort == 'updated' ){
+            if ( $key_to_sort == 'time' ){
               return strcmp($b->{$key_to_sort}, $a->{$key_to_sort});
             } else {
               return strcmp($a->{$key_to_sort}, $b->{$key_to_sort});
