@@ -33,7 +33,7 @@ class UploadController extends LfmController
             try {
                 $new_filename = $this->lfm->upload($file);
             } catch (\Exception $e) {
-                Log::error($e->getMessage(), [
+                Log::info($e->getMessage(), [
                     'file' => $e->getFile(),
                     'line' => $e->getLine(),
                     'trace' => $e->getTraceAsString()
