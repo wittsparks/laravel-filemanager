@@ -202,9 +202,9 @@ class LfmPath
 
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
             if ( $key_to_sort == 'time' ){
-              return strcmp($b->{$key_to_sort}, $a->{$key_to_sort});
+              return strcasecmp($b->{$key_to_sort}, $a->{$key_to_sort});
             } else {
-              return strcmp($a->{$key_to_sort}, $b->{$key_to_sort});
+              return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
             }
         });
 
@@ -281,8 +281,9 @@ class LfmPath
 
     private function getNewName($file)
     {
-        $new_file_name = $this->helper
-            ->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+        $new_file_name = $this->helper->translateFromUtf8(
+            trim($this->helper->utf8Pathinfo($file->getClientOriginalName(), "filename"))
+        );
 
         $extension = $file->getClientOriginalExtension();
 
