@@ -1,0 +1,92 @@
+diff --git a/public/js/script.js b/public/js/script.js
+index 2a2b49c..dd91065 100644
+--- a/public/js/script.js
++++ b/public/js/script.js
+@@ -1,6 +1,6 @@
+ var lfm_route = location.origin + location.pathname;
+ var show_list;
+-var sort_type = 'alphabetic';
++var sort_type = 'time';
+ var multi_selection_enabled = false;
+ var selected = [];
+ var items = [];
+@@ -139,6 +139,21 @@ $(document).on('click', '#upload', function () {
+   $('#uploadModal').modal('show');
+ });
+ 
++// Assessment Generator custom menu items
++$(document).on('click', '#nav-upload', function () {
++  $('#uploadModal').modal('show');
++});
++
++$(document).on('click', '#nav-close', function () {
++   if ( typeof parent.CKEDITOR === 'undefined' ) {
++      window.close();
++   } else {
++      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
++   }
++});
++// End Assessment Generator custom menu items
++
++
+ $(document).on('click', '[data-display]', function() {
+   show_list = $(this).data('display');
+   loadItems();
+diff --git a/src/LfmPath.php b/src/LfmPath.php
+index b9a778c..278d0ce 100644
+--- a/src/LfmPath.php
++++ b/src/LfmPath.php
+@@ -206,8 +206,13 @@ class LfmPath
+             $key_to_sort = 'name';
+         }
+ 
++        // Assessment Generator update - sort newest first
+         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
+-            return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
++            if ( $key_to_sort == 'time' ){
++              return strcasecmp($b->{$key_to_sort}, $a->{$key_to_sort});
++            } else {
++              return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
++            }
+         });
+ 
+         return $arr_items;
+diff --git a/src/lang/en/lfm.php b/src/lang/en/lfm.php
+index fa5e875..7af71e9 100644
+--- a/src/lang/en/lfm.php
++++ b/src/lang/en/lfm.php
+@@ -7,7 +7,7 @@ return [
+     'nav-thumbnails'    => 'Thumbnails',
+     'nav-list'          => 'List',
+     'nav-sort'          => 'Sort',
+-    'nav-sort-alphabetic'=> 'Sort By Alphabets',
++    'nav-sort-alphabetic'=> 'Sort By Name',
+     'nav-sort-time'     => 'Sort By Time',
+ 
+     'menu-rename'       => 'Rename',
+diff --git a/src/views/index.blade.php b/src/views/index.blade.php
+index fb5ec44..478e706 100644
+--- a/src/views/index.blade.php
++++ b/src/views/index.blade.php
+@@ -64,6 +64,21 @@
+           </a>
+           <div class="dropdown-menu dropdown-menu-right border-0"></div>
+         </li>
++
++        <!-- Assessment Generator custom menu items -->
++        <li class="nav-item">
++          <a class="nav-link" id="nav-upload">
++            <i class="fas fa-upload fa-fw"></i>
++            <span>{{ trans('laravel-filemanager::lfm.nav-upload') }}</span>
++          </a>
++        </li>
++        <li class="nav-item">
++          <a class="nav-link" id="nav-close">
++            <span style="background-color:white; border-radius:12px; display:inline-block; color:black; font-weight:bold; width:25px; text-align:center">X</span>
++          </a>
++        </li>
++        <!-- End Assessment Generator custom menu items -->
++
+       </ul>
+     </div>
+   </nav>

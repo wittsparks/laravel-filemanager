@@ -64,6 +64,21 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right border-0"></div>
         </li>
+
+        <!-- Assessment Generator custom menu items -->
+        <li class="nav-item">
+          <a class="nav-link" id="nav-upload">
+            <i class="fas fa-upload fa-fw"></i>
+            <span>{{ trans('laravel-filemanager::lfm.nav-upload') }}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-close">
+            <span style="background-color:white; border-radius:12px; display:inline-block; color:black; font-weight:bold; width:25px; text-align:center">X</span>
+          </a>
+        </li>
+        <!-- End Assessment Generator custom menu items -->
+
       </ul>
     </div>
   </nav>

@@ -1,6 +1,6 @@
 var lfm_route = location.origin + location.pathname;
 var show_list;
-var sort_type = 'alphabetic';
+var sort_type = 'time';
 var multi_selection_enabled = false;
 var selected = [];
 var items = [];
@@ -138,6 +138,21 @@ $(document).on('click', '#add-folder', function () {
 $(document).on('click', '#upload', function () {
   $('#uploadModal').modal('show');
 });
+
+// Assessment Generator custom menu items
+$(document).on('click', '#nav-upload', function () {
+  $('#uploadModal').modal('show');
+});
+
+$(document).on('click', '#nav-close', function () {
+   if ( typeof parent.CKEDITOR === 'undefined' ) {
+      window.close();
+   } else {
+      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
+   }
+});
+// End Assessment Generator custom menu items
+
 
 $(document).on('click', '[data-display]', function() {
   show_list = $(this).data('display');

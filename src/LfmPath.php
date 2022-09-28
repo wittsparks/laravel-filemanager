@@ -206,8 +206,13 @@ class LfmPath
             $key_to_sort = 'name';
         }
 
+        // Assessment Generator update - sort newest first
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
-            return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
+            if ( $key_to_sort == 'time' ){
+              return strcasecmp($b->{$key_to_sort}, $a->{$key_to_sort});
+            } else {
+              return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
+            }
         });
 
         return $arr_items;
